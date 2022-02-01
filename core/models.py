@@ -5,13 +5,16 @@ from django.contrib.auth.models import User
 
 class Evento(models.Model): #classe que representa uma tabela
     titulo = models.CharField(max_length=100)
-    descricao = models.TextField(blank=True, null=True)
+    descricao = models.TextField(blank=True, null=True) #permitindo os campos serem preenchidos ou não, através de "(blank=True, null=True)"
     data_evento = models.DateTimeField(verbose_name='Data do Evento')
     data_criacao = models.DateTimeField(auto_now=True) #criando um registro, ele exibe a hora atual
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE) #cascade = se o usuário for escluído da aplicação, tb serão excluídos todos os eventos dele
+
     class Meta:
         db_table = 'evento' #exijo que a tabela chame "evento" e não "core_evento" posto pelo Django automaticamente
 
     def __str__(self):
         return self.titulo
 
+    def get_data_evento(self):
+        return self.data_evento.strftime('%d/%m/%Y às %H:%M hrs')
