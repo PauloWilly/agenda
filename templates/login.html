@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Agenda</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <form action="submit" method="POST">{% csrf_token %} <!--a "action" é o que será concatenado na URL; {% csrf_token %} = sempre quando houver um "form" que não seja do tipo get, temos que adicionar esse token de segurança-->
+        <div align="center" >
+            <label>Usuário:</label>
+            <input type="text" name="username">
+            <label>Password:</label>
+            <input type="password" name="password">
+            <button type="submit">Entrar</button>
+        </div>
+    </form>
+
+    {% for message in messages %}
+        <div align="center">
+            <strong>Erro! </strong> {{message}}
+        </div>
+    {% endfor %}
+
+</body>
+</html>
