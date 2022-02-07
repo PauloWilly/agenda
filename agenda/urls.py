@@ -21,6 +21,8 @@ from django.views.generic import RedirectView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('agenda/', views.lista_eventos),
+    path('agenda/evento/', views.evento), #rota para tela de cadastro
+    path('agenda/evento/submit', views.submit_evento),
     # path('', views.index), #quando início da página for em branco, será redirecionada para "agenda"
     path('', RedirectView.as_view(url='/agenda/')), #ou posso fazer o mesmo do que a linha de acima, dessa maneira
     path('login/', views.login_user),

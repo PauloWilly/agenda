@@ -1,12 +1,14 @@
 {% extends "model-page.html" %}
 
-//todo conteúdo abaixo faz parte do bloco "content" //
-{% block content %}
-    <h2>Agendamentos</h2>
 
+{% block content %}
+    <h2>Agendamentos</h2> <!-- todo conteúdo abaixo faz parte do bloco "content" -->
+    <a href="evento/">
+        <button type="button">Novo Evento</button>
+    </a>
     <ul style="font-size: 18px">
-        {% for evento in evento %}
-            <li>{{ evento.titulo }} - {{evento.get_data_evento}}</li>
+        {% for evento in eventos %}
+            <li>{{ evento.titulo }} - {{ evento.get_data_evento }}</li>
         {% endfor %}
     </ul>
 {% endblock %}
