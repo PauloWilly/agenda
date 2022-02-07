@@ -18,3 +18,6 @@ class Evento(models.Model): #classe que representa uma tabela
 
     def get_data_evento(self):
         return self.data_evento.strftime('%d/%m/%Y às %H:%M hrs')
+
+    def get_data_input_evento(self):
+        return self.data_evento.strftime('%Y-%m-%dT%H:%M')# formatando no padrão que o navegador entende
