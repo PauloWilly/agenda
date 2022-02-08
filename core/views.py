@@ -1,8 +1,11 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from core.models import Evento
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from datetime import datetime, timedelta
+from django.http.response import Http404, JsonResponse
 # Create your views here.
 
 # def index(request):
@@ -30,7 +33,9 @@ def submit_login(request):
 @login_required(login_url='/login/')
 def lista_eventos(request):
     usuario = request.user
-    evento = Evento.objects.filter(usuario=usuario)  # listando os eventos cadastrados
+    data_atual = datetime.now() - timedelta(hours=1) #vai exibir o evento  com até 1 hora de atraso
+    evento = Evento.objects.filter(usuario=usuario,
+                                   data_evento__gt=data_atual)  # listando os eventos cadastrados; "__gt" means >= e "__lt" means <=
     dados = {'eventos': evento}
     return render(request, 'agenda.html', dados)
 
@@ -72,7 +77,18 @@ def submit_evento(request):
 @login_required(login_url='/login/')
 def delete_evento(request, id_evento):
     usuario = request.user
-    evento = Evento.objects.get(id=id_evento)
+    try:
+        evento = Evento.objects.get(id=id_evento)
+    except Exception:
+        raise Http404 # trocando a msg de erro para Http404
     if usuario == evento.usuario: #validação para deletar um evento somente se o usuario for o criador do evento
         evento.delete()
+    else:
+        raise Http404() # trocando a msg de erro para Http404
     return redirect('/') #redirecionando para a página principal
+
+# @login_required(login_url='/login/')
+def json_lista_evento(request, id_usuario):
+    usuario = User.objects.get(id=id_usuario)
+    evento = Evento.objects.filter(usuario=usuario).values('id', 'titulo')
+    return JsonResponse(list(evento), safe=False)

@@ -24,9 +24,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '@trih_nmj5xuzl07&_-zcva^t)08+0!p=bmphrp5w@==t#5k&8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True #deixand False as mesagens de erro na tela serão mostradas de maneira diferente, mais amigável ao usuário e não o modo desenvolvedor True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [] # habilitando todos os "hosts" pois troquei o meu "DEBUG"  de True para False, do contrário dentro dos colchetes poderia estar vazio
 
 
 # Application definition
@@ -105,15 +105,15 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
